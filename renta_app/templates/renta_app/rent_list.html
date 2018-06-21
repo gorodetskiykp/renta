@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Аренда</h3>
+{% regroup object_list by category as category_list %}
+<table class="table table-bordered table-sm">
+    <tbody>
+    {% for category in category_list %}
+    <tr>
+        <th colspan="4" class="table-success"><a name="{{ category.grouper }}"></a>{{ category.grouper }}</th>
+    </tr>
+    {% for item in category.list %}
+    <tr class="text-center">
+        <td class="text-center align-middle">
+            <a href="{% url 'renta_app:item-detail' item.id %}" title="Открыть карточку">
+                <img src="{{ item.img }}" style="max-width: 10rem; max-height: 10rem;"/></a>
+            <a data-fancybox="{{ item.name }}" href="{{ item.img }}" title="Посмотреть фото поближе"><i
+                    class="fas fa-search-plus"></i></a>
+            <a href="{% url 'renta_app:item-detail' item.id %}" title="Открыть карточку">
+                <h5>{{ item.name }}</h5>В наличии <b>{{ item.quantity }}</b> шт.
+                {% if not city_name %}
+                ({{ item.city }})
+                {% endif %}
+            </a>
+
+        </td>
+        <td class="text-center align-middle"> {{ item.price_per_hour }} руб. / час</td>
+        <td class="text-center align-middle"> {{ item.price_per_day }} руб. / день</td>
+        <td class="text-center align-middle">{{ item.price_per_month }} руб. / мес.</td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>{{ object.name }}</h3>
+<div class="text-center">
+<a data-fancybox="{{ object.name }}" href="{{ object.img }}" title="Посмотреть фото поближе">
+    <img src="{{ object.img }}" style="max-width: 20rem; max-height: 20rem;"/></a>
+    <p><h6>В наличии <b>{{ object.quantity }}</b> шт.
+    {% if not city_name %}({{object.city}}){% endif %}</h6></p>
+</div>
+<div>
+<h5>{{ object.price_per_hour }} руб. / час</h5>
+<h5>{{ object.price_per_day }} руб. / день</h5>
+<h5>{{ object.price_per_month }} руб. / мес.</h5>
+</div>
+<hr />
+<div>
+    {{ object.description }}
+</div>
+{% endblock %}
